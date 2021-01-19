@@ -65,8 +65,9 @@ public class AddMeetingActivity extends AppCompatActivity {
     private int lastSelectedHour = -1;
     private int lastSelectedMinute = -1;
     private MeetingApiService mApiService;
-    public List meetingDrawable = Arrays.asList(R.drawable.ic_baseline_brightness_1_40,R.drawable.ic_baseline_brightness_blue_1_40);
+    private String meetingDrawable ;
     private String mMeetingImage;
+    private  String meetingRoomsColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +105,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Meeting meeting = new Meeting(
+
                         mMeetingImage,
                         meetingObject.getEditText().getText().toString(),
                         meetingDatePicker.getEditText().getText().toString(),
@@ -151,8 +153,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private void init(){
-
-        Glide.with(this).load(mMeetingImage).into(meetingImage);
+        mMeetingImage = getRoomsColor();
+        Glide.with(this).load(mMeetingImage).placeholder(ic_baseline_brightness_red_1_40).into(meetingImage);
         meetingObject.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -170,6 +172,21 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+     String getRoomsColor(){
+       meetingRoomsColor = meetingRoom.getEditText().getText().toString();
+                switch (meetingRoomsColor) {
+                   case "Salle A":
+                       meetingImage.setImageResource(ic_baseline_brightness_1_40);
+                   case "Salle B":
+                       meetingImage.setImageResource(ic_baseline_brightness_blue_1_40);
+
+                   case "Salle C":
+                       meetingImage.setImageResource(ic_baseline_brightness_pink_1_40);
+               }
+               return "meetingImage.setImageResource()"+ System.currentTimeMillis();
+
     }
 
 
