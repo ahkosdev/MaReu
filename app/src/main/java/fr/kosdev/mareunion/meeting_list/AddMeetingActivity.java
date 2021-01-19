@@ -7,18 +7,23 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +31,8 @@ import fr.kosdev.mareunion.DI.DI;
 import fr.kosdev.mareunion.R;
 import fr.kosdev.mareunion.model.Meeting;
 import fr.kosdev.mareunion.service.MeetingApiService;
+
+import static fr.kosdev.mareunion.R.drawable.*;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -49,6 +56,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     TextInputLayout meetingDatePicker;
     @BindView(R.id.text_input_time)
     TextInputLayout meetingTimePicker;
+    @BindView(R.id.meeting_image_img)
+    ImageView meetingImage;
 
     private int lastSelectedYear;
     private int lastSelectedMonth;
@@ -56,6 +65,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     private int lastSelectedHour = -1;
     private int lastSelectedMinute = -1;
     private MeetingApiService mApiService;
+    public List meetingDrawable = Arrays.asList(R.drawable.ic_baseline_brightness_1_40,R.drawable.ic_baseline_brightness_blue_1_40);
+    private String mMeetingImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +74,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
         mApiService = DI.getMeetingApiService();
+        init();
 
 
         datePicker.setOnClickListener(new View.OnClickListener() {
@@ -87,19 +99,17 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
-        init();
-
         addMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Meeting meeting = new Meeting(
+                        mMeetingImage,
                         meetingObject.getEditText().getText().toString(),
-                        meetingRoom.getEditText().getText().toString(),
-                        entrantMail.getEditText().getText().toString(),
-                       // meetingDate.getEditableText().toString(),
                         meetingDatePicker.getEditText().getText().toString(),
-                        meetingTimePicker.getEditText().getText().toString()
+                        meetingTimePicker.getEditText().getText().toString(),
+                        meetingRoom.getEditText().getText().toString(),
+                        entrantMail.getEditText().getText().toString()
                 );
                 mApiService.createMeeting(meeting);
                 finish();
@@ -142,6 +152,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void init(){
 
+        Glide.with(this).load(mMeetingImage).into(meetingImage);
         meetingObject.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -160,6 +171,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 

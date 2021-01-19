@@ -1,5 +1,7 @@
 package fr.kosdev.mareunion.model;
 
+import fr.kosdev.mareunion.R;
+
 public class Meeting {
 
     String name;
@@ -7,14 +9,24 @@ public class Meeting {
     String time;
     String meetingRoom;
     String entrantMail;
+    String meetingImage  ;
 
 
-    public Meeting(String name,String date, String time, String meetingRoom , String entrantMail) {
+    public Meeting(String meetingImage ,String name,String date, String time, String meetingRoom , String entrantMail) {
         this.name = name;
         this.date = date;
         this.time = time;
         this.meetingRoom = meetingRoom;
         this.entrantMail = entrantMail;
+        this.meetingImage = meetingImage;
+    }
+
+    public String getMeetingImage() {
+        return meetingImage;
+    }
+
+    public void setMeetingImage(String meetingImage) {
+        this.meetingImage = meetingImage;
     }
 
     public String getName() {

@@ -73,6 +73,8 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
     private void updateMeetingList(){
+        mMeetings.clear();
+        mMeetings.addAll(mApiService.getMeetings());
         meetingAdapter.notifyDataSetChanged();
     }
 
