@@ -1,16 +1,19 @@
 package fr.kosdev.mareunion.meeting_list;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,10 +23,10 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import fr.kosdev.mareunion.DI.DI;
 import fr.kosdev.mareunion.R;
 import fr.kosdev.mareunion.event.DeleteMeetingEvent;
@@ -38,11 +41,16 @@ public class ListMeetingActivity extends AppCompatActivity {
     @BindView(R.id.meeting_list_rcv)
     RecyclerView mRecyclerView;
 
+
     private List<Meeting> mMeetings;
     private MeetingApiService mApiService;
     private MeetingRecyclerViewAdapter meetingAdapter;
     DummyMeetingApiService meetingApiService = new DummyMeetingApiService();
+    private int lastSelectedYear;
+    private int lastSelectedMonth;
+    private int lastSelectedDayOfMonth;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +70,14 @@ public class ListMeetingActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+        final Calendar calendar = Calendar.getInstance();
+        lastSelectedYear = calendar.get(Calendar.YEAR);
+        lastSelectedMonth = calendar.get(Calendar.MONTH);
+        lastSelectedDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
 
     }
 
@@ -87,9 +103,23 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected( MenuItem item) {
-        item.getItemId();
-        Toast.makeText(this, "no filter", Toast.LENGTH_LONG).show();
-        return true;
+        switch (item.getItemId()){
+            case R.id.toolbar_filter_list_btn:
+                Toast.makeText(this, "no filter", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.sub_date:
+                menuSelectedDate();
+                return true;
+            case R.id.sub_rooms:
+                Toast.makeText(this, "rooms filter", Toast.LENGTH_LONG).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
+
     }
 
     private void configureToolbar(){
@@ -122,4 +152,21 @@ public class ListMeetingActivity extends AppCompatActivity {
         mApiService.deleteMeeting(event.meeting);
         updateMeetingList();
     }
+
+    private void menuSelectedDate(){
+
+        DatePickerDialog.OnDateSetListener mPickerDialog = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                lastSelectedYear = year;
+                lastSelectedMonth = month;
+                lastSelectedDayOfMonth = dayOfMonth;
+
+            }
+
+        };
+        DatePickerDialog menuPicker = new DatePickerDialog(this, mPickerDialog,lastSelectedYear,lastSelectedMonth,lastSelectedDayOfMonth);
+        menuPicker.show();
+    }
+
 }

@@ -1,19 +1,20 @@
 package fr.kosdev.mareunion.meeting_list;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.bumptech.glide.Glide;
@@ -21,9 +22,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.Arrays;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +33,7 @@ import fr.kosdev.mareunion.R;
 import fr.kosdev.mareunion.model.Meeting;
 import fr.kosdev.mareunion.service.MeetingApiService;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static fr.kosdev.mareunion.R.drawable.*;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -46,7 +48,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     MaterialButton timePicker;
     @BindView(R.id.text_input_object_txt)
     TextInputLayout meetingObject;
-    @BindView(R.id.text_input_meeting_room)
+   // @BindView(R.id.text_input_meeting_room)
     TextInputLayout meetingRoom;
     @BindView(R.id.text_input_entrant_mail)
     TextInputLayout entrantMail;
@@ -58,6 +60,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     TextInputLayout meetingTimePicker;
     @BindView(R.id.meeting_image_img)
     ImageView meetingImage;
+    @BindView(R.id.meeting_rooms_spin)
+    Spinner meetingRoomSpinner;
 
     private int lastSelectedYear;
     private int lastSelectedMonth;
@@ -65,9 +69,9 @@ public class AddMeetingActivity extends AppCompatActivity {
     private int lastSelectedHour = -1;
     private int lastSelectedMinute = -1;
     private MeetingApiService mApiService;
-    private String meetingDrawable ;
-    private String mMeetingImage;
+    private int mMeetingImage;
     private  String meetingRoomsColor;
+    long mMeetingDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectDay();
+                selectDate();
             }
         });
 
@@ -101,25 +105,36 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
 
         addMeeting.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
 
+                mMeetingImage = getRoomsColor();
+
                 Meeting meeting = new Meeting(
 
+                        mMeetingDuration,
                         mMeetingImage,
                         meetingObject.getEditText().getText().toString(),
                         meetingDatePicker.getEditText().getText().toString(),
                         meetingTimePicker.getEditText().getText().toString(),
-                        meetingRoom.getEditText().getText().toString(),
+                        meetingRoomSpinner.getSelectedItem().toString(),
                         entrantMail.getEditText().getText().toString()
+
+
+
+
+
                 );
-                mApiService.createMeeting(meeting);
-                finish();
+                if (!mApiService.getMeetings().contains(meeting.getDate() + meeting.getMeetingRoom() + meeting.getTime())) {
+                    mApiService.createMeeting(meeting);
+                    finish();
+                }
             }
         });
     }
 
-    private void selectDay(){
+    private void selectDate(){
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -154,7 +169,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void init(){
         mMeetingImage = getRoomsColor();
-        Glide.with(this).load(mMeetingImage).placeholder(ic_baseline_brightness_red_1_40).into(meetingImage);
+        Glide.with(this).load(mMeetingImage).placeholder(ic_baseline_brightness_df_1_40).into(meetingImage);
         meetingObject.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -174,20 +189,37 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-     String getRoomsColor(){
-       meetingRoomsColor = meetingRoom.getEditText().getText().toString();
+     int getRoomsColor(){
+       meetingRoomsColor = meetingRoomSpinner.getSelectedItem().toString();
                 switch (meetingRoomsColor) {
                    case "Salle A":
-                       meetingImage.setImageResource(ic_baseline_brightness_1_40);
+                       return ic_baseline_brightness_sa_1_24;
                    case "Salle B":
-                       meetingImage.setImageResource(ic_baseline_brightness_blue_1_40);
-
+                       return ic_baseline_brightness_sb_1_40;
                    case "Salle C":
-                       meetingImage.setImageResource(ic_baseline_brightness_pink_1_40);
+                       return ic_baseline_brightness_sc_1_40;
+                    case "Salle D":
+                        return ic_baseline_brightness_sd_1_40;
+                    case "Salle E":
+                        return ic_baseline_brightness_se_1_40;
+                    case "Salle f":
+                        return ic_baseline_brightness_sf_1_24;
+                    case "Salle G":
+                        return ic_baseline_brightness_sg_1_40;
+                    case "Salle H":
+                        return ic_baseline_brightness_sh_1_40;
+                    case "Salle I":
+                        return ic_baseline_brightness_si_1_40;
+                    case "Salle J":
+                        return ic_baseline_brightness_sj_1_40;
+                    default:
+                        return ic_baseline_brightness_df_1_40;
                }
-               return "meetingImage.setImageResource()"+ System.currentTimeMillis();
+
 
     }
+
+
 
 
 

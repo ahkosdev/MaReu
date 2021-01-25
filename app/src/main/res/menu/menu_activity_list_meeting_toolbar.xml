@@ -4,6 +4,16 @@
     <item
         android:id="@+id/toolbar_filter_list_btn"
         android:icon="@drawable/ic_baseline_filter_list_24"
-        app:showAsAction="ifRoom"
-        android:title="filter"/>
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/filter">
+        <menu>
+            <item
+                android:id="@+id/sub_date"
+                android:title="@string/meeting_dates" />
+            <item
+                android:id="@+id/sub_rooms"
+                android:title="@string/meeting_rooms"/>
+        </menu>
+
+    </item>
 </menu>

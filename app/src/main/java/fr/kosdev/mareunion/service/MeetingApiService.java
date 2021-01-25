@@ -8,9 +8,12 @@ import fr.kosdev.mareunion.model.Meeting;
 public interface MeetingApiService {
 
     List<Meeting> getMeetings();
+    List<Meeting> getMeetingsWithDateSelected();
+    List<Meeting> getMeetingsWithRoomSelected();
 
     void createMeeting(Meeting meeting);
 
     void  deleteMeeting(Meeting meeting);
+
 
 }

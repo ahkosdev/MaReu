@@ -17,6 +17,7 @@
         android:layout_marginRight="@dimen/linear_layout_margin"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,7 +26,7 @@
             android:layout_width="@dimen/image_width"
             android:layout_height="@dimen/image_height"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/image_margin"/>
+            android:layout_marginTop="@dimen/image_margin" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_object_txt"
@@ -33,46 +34,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_input_start_margin"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Large">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Meeting Object"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:textSize="40sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="@dimen/text_input_margin"
-            >
-            <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            >
+            android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/meeting_date"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
-                android:hint="DD/MM/YYYY"
-                android:inputType="date"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Large">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/meeting_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="DD/MM/YYYY"
+                    android:inputType="date"
+                    android:textSize="40sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/date_picker_button"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Button"
-                android:enabled="true"
                 android:layout_marginLeft="@dimen/button_margin"
+                android:enabled="true"
+                android:textSize="40sp"
                 android:text="GET DATE"
 
                 />
@@ -82,35 +85,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/text_input_margin">
+            android:layout_marginTop="@dimen/text_input_margin"
+            android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_time"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                >
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Large">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/meeting_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="8"
+                    android:ems="10"
                     android:hint="Hr:Mn"
-                    android:inputType="time"/>
+                    android:inputType="time"
+                    android:textSize="40sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/time_picker_button"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.Button"
-                android:enabled="true"
                 android:layout_marginLeft="@dimen/button_margin"
-                android:text="GET TIME"/>
+                android:enabled="true"
+                android:text="GET TIME"
+                android:textSize="40sp"/>
 
 
         </LinearLayout>
@@ -124,18 +128,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select Meeting Room"
-                android:layout_marginRight="@dimen/spinner_space"
                 android:layout_gravity="center_vertical"
-                />
+                android:layout_marginRight="@dimen/spinner_space"
+                android:text="Select Meeting Room"
+                android:textSize="40sp" />
+
             <Spinner
                 android:id="@+id/meeting_rooms_spin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:entries="@array/rooms_name"
                 android:layout_gravity="center_vertical"
-                />
+                android:layout_weight="1"
+                android:entries="@array/rooms_name" />
 
 
         </LinearLayout>
@@ -143,29 +147,31 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_entrant_mail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_marginTop="@dimen/text_input_margin">
+            android:layout_marginTop="@dimen/text_input_margin"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Large">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Entrant Mail"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:textSize="40sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/meeting_add_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Button"
-            android:layout_marginTop="@dimen/text_input_start_margin"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:cornerRadius="20dp"
+            android:layout_marginTop="@dimen/text_input_start_margin"
             android:enabled="false"
-            android:text="Add"/>
+            android:text="Add"
+            android:textSize="40sp"
+            app:cornerRadius="30dp" />
 
     </LinearLayout>
 

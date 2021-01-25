@@ -8,6 +8,8 @@ import fr.kosdev.mareunion.model.Meeting;
 public class DummyMeetingApiService  implements MeetingApiService {
 
     List<Meeting> mMeetings = new ArrayList<>();
+    List<Meeting> meetingsPerDate = new ArrayList<>();
+    List<Meeting> meetingsPerRoom = new ArrayList<>();
 
 
     @Override
@@ -26,5 +28,15 @@ public class DummyMeetingApiService  implements MeetingApiService {
     public void deleteMeeting(Meeting meeting) {
         mMeetings.remove(meeting);
 
+    }
+
+    @Override
+    public List<Meeting> getMeetingsWithDateSelected() {
+        return meetingsPerDate;
+    }
+
+    @Override
+    public List<Meeting> getMeetingsWithRoomSelected() {
+        return meetingsPerRoom;
     }
 }
