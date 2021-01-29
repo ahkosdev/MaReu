@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,8 +20,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -33,7 +29,6 @@ import fr.kosdev.mareunion.R;
 import fr.kosdev.mareunion.model.Meeting;
 import fr.kosdev.mareunion.service.MeetingApiService;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static fr.kosdev.mareunion.R.drawable.*;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -72,6 +67,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private int mMeetingImage;
     private  String meetingRoomsColor;
     long mMeetingDuration;
+    Calendar mCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,26 +106,23 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 mMeetingImage = getRoomsColor();
-
                 Meeting meeting = new Meeting(
 
-                        mMeetingDuration,
                         mMeetingImage,
                         meetingObject.getEditText().getText().toString(),
                         meetingDatePicker.getEditText().getText().toString(),
                         meetingTimePicker.getEditText().getText().toString(),
                         meetingRoomSpinner.getSelectedItem().toString(),
-                        entrantMail.getEditText().getText().toString()
-
-
-
+                        entrantMail.getEditText().getText().toString(),
+                        mMeetingDuration,
+                        mCalendar
 
 
                 );
-                if (!mApiService.getMeetings().contains(meeting.getDate() + meeting.getMeetingRoom() + meeting.getTime())) {
+
                     mApiService.createMeeting(meeting);
                     finish();
-                }
+
             }
         });
     }
@@ -140,6 +133,8 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 meetingDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                mCalendar.clear();
+                mCalendar.set(year,month,dayOfMonth);
 
                 lastSelectedYear = year;
                 lastSelectedMonth = month;

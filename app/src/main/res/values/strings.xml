@@ -5,6 +5,7 @@
     <string name="meeting_dates">Meeting Dates</string>
     <string name="filter">filter</string>
     <string name="meeting_rooms">Meeting Rooms</string>
+    <string name="salle_a">Salle A</string>
     <string-array name="rooms_name">
         <item> Salle A</item>
         <item> Salle B</item>

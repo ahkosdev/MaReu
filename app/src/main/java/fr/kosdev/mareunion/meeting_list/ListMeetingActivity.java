@@ -104,14 +104,17 @@ public class ListMeetingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected( MenuItem item) {
         switch (item.getItemId()){
-            case R.id.toolbar_filter_list_btn:
-                Toast.makeText(this, "no filter", Toast.LENGTH_LONG).show();
-                return true;
+            //case R.id.toolbar_filter_list_btn:
+                //Toast.makeText(this, "no filter", Toast.LENGTH_LONG).show();
+                //return true;
             case R.id.sub_date:
                 menuSelectedDate();
                 return true;
             case R.id.sub_rooms:
-                Toast.makeText(this, "rooms filter", Toast.LENGTH_LONG).show();
+               // Toast.makeText(this, "rooms filter", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.room_A:
+                Toast.makeText(this,"Choisir une salle", Toast.LENGTH_LONG).show();
                 return true;
 
             default:
@@ -158,6 +161,10 @@ public class ListMeetingActivity extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener mPickerDialog = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                java.util.Calendar dateSelected = java.util.Calendar.getInstance();
+                dateSelected.clear();
+                dateSelected.set(year,month,dayOfMonth);
+                mApiService.getMeetingsWithDateSelected(dateSelected);
                 lastSelectedYear = year;
                 lastSelectedMonth = month;
                 lastSelectedDayOfMonth = dayOfMonth;

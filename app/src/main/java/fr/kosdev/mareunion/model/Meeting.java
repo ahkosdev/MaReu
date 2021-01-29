@@ -1,16 +1,8 @@
 package fr.kosdev.mareunion.model;
 
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
+import java.util.Calendar;
 
-import java.time.Duration;
-
-import fr.kosdev.mareunion.R;
-
-import static java.time.Duration.ofMinutes;
-
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class Meeting {
 
     String name;
@@ -20,10 +12,11 @@ public class Meeting {
     String entrantMail;
     int meetingImage  ;
     long meetingDuration ;
+    Calendar mCalendar;
 
 
 
-    public Meeting(long meetingDuration,int meetingImage ,String name,String date, String time, String meetingRoom , String entrantMail) {
+    public Meeting(int meetingImage, String name,String date , String time , String meetingRoom , String entrantMail, long meetingDuration, Calendar mCalendar) {
         this.name = name;
         this.date = date;
         this.time = time;
@@ -31,7 +24,13 @@ public class Meeting {
         this.entrantMail = entrantMail;
         this.meetingImage = meetingImage;
         this.meetingDuration = meetingDuration;
+        this.mCalendar = mCalendar;
     }
+
+    public Meeting(){
+
+    }
+
 
     public int getMeetingImage() {
         return meetingImage;
@@ -87,5 +86,13 @@ public class Meeting {
 
     public void setMeetingDuration(long meetingDuration) {
         this.meetingDuration = meetingDuration;
+    }
+
+    public Calendar getCalendar() {
+        return mCalendar;
+    }
+
+    public void setCalendar(Calendar calendar) {
+        mCalendar = calendar;
     }
 }

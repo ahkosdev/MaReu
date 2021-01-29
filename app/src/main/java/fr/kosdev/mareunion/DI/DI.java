@@ -5,11 +5,11 @@ import fr.kosdev.mareunion.service.MeetingApiService;
 
 public class DI {
 
-    private static MeetingApiService sMeetingApiService = new DummyMeetingApiService();
+    private static MeetingApiService meetingService = new DummyMeetingApiService();
 
 
     public static MeetingApiService getMeetingApiService() {
 
-        return sMeetingApiService;
+        return meetingService;
     }
 }
