@@ -3,6 +3,9 @@ package fr.kosdev.mareunion;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.kosdev.mareunion.DI.DI;
 import fr.kosdev.mareunion.model.Meeting;
 import fr.kosdev.mareunion.service.MeetingApiService;
@@ -39,5 +42,11 @@ public class MeetingServiceTest {
         Meeting meetingToCreate = new Meeting();
         meetingService.deleteMeeting(meetingToCreate);
         assertFalse(meetingService.getMeetings().contains(meetingToCreate));
+    }
+
+    @Test
+    public void getMeetingsWithDateSelectedWithSuccess() {
+        List<Meeting> meetingsPerDate = new ArrayList<>();
+
     }
 }

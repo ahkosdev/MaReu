@@ -10,7 +10,7 @@ public interface MeetingApiService {
 
     List<Meeting> getMeetings();
     List<Meeting> getMeetingsWithDateSelected(Calendar dateSelected);
-    List<Meeting> getMeetingsWithRoomSelected();
+    List<Meeting> getMeetingsWithRoomSelected(String roomSelected);
 
     void createMeeting(Meeting meeting);
 

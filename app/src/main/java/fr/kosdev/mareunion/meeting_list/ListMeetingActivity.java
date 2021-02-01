@@ -1,11 +1,13 @@
 package fr.kosdev.mareunion.meeting_list;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -23,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 import butterknife.BindView;
@@ -49,6 +52,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     private int lastSelectedYear;
     private int lastSelectedMonth;
     private int lastSelectedDayOfMonth;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -111,10 +115,7 @@ public class ListMeetingActivity extends AppCompatActivity {
                 menuSelectedDate();
                 return true;
             case R.id.sub_rooms:
-               // Toast.makeText(this, "rooms filter", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.room_A:
-                Toast.makeText(this,"Choisir une salle", Toast.LENGTH_LONG).show();
+                configureAlertDialog();
                 return true;
 
             default:
@@ -164,7 +165,9 @@ public class ListMeetingActivity extends AppCompatActivity {
                 java.util.Calendar dateSelected = java.util.Calendar.getInstance();
                 dateSelected.clear();
                 dateSelected.set(year,month,dayOfMonth);
-                mApiService.getMeetingsWithDateSelected(dateSelected);
+                mMeetings.clear();
+                mMeetings.addAll(mApiService.getMeetingsWithDateSelected(dateSelected));
+                meetingAdapter.notifyDataSetChanged();
                 lastSelectedYear = year;
                 lastSelectedMonth = month;
                 lastSelectedDayOfMonth = dayOfMonth;
@@ -174,6 +177,33 @@ public class ListMeetingActivity extends AppCompatActivity {
         };
         DatePickerDialog menuPicker = new DatePickerDialog(this, mPickerDialog,lastSelectedYear,lastSelectedMonth,lastSelectedDayOfMonth);
         menuPicker.show();
+    }
+
+    private void configureAlertDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("choose your room");
+        String[] rooms = {"Salle A","Salle B","Salle C","Salle D","Salle E","Salle F","Salle G","Salle H","Salle I","Salle J"};
+        int checkedRoom = 0;
+        builder.setSingleChoiceItems(rooms, checkedRoom, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String roomSelected = Integer.toString(checkedRoom);
+                mMeetings.clear();
+                mMeetings.addAll(mApiService.getMeetingsWithRoomSelected(roomSelected));
+                meetingAdapter.notifyDataSetChanged();
+
+            }
+        });
+        builder.setNegativeButton("Cancel",null);
+        AlertDialog roomsDialog = builder.create();
+        roomsDialog.show();
     }
 
 }

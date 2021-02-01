@@ -13,43 +13,7 @@
             <item
                 android:id="@+id/sub_rooms"
                 android:title="@string/meeting_rooms">
-                <menu>
-                <group android:id="@+id/rooms_group">
-                    <item
-                    android:id="@+id/room_A"
-                    android:title="@string/salle_a"/>
-                    <item
-                        android:id="@+id/room_B"
-                        android:title="Salle B"/>
-                    <item
-                        android:id="@+id/room_C"
-                        android:title="Salle C"/>
-                    <item
-                        android:id="@+id/room_D"
-                        android:title="Salle D"/>
-                    <item
-                        android:id="@+id/room_E"
-                        android:title="Salle E"/>
-                    <item
-                        android:id="@+id/room_F"
-                        android:title="Salle F"/>
-                    <item
-                        android:id="@+id/room_G"
-                        android:title="Salle G"/>
-                    <item
-                        android:id="@+id/room_H"
-                        android:title="Salle H"/>
-                    <item
-                        android:id="@+id/room_I"
-                        android:title="Salle I"/>
-                    <item
-                        android:id="@+id/room_J"
-                        android:title="Salle J"/>
 
-
-
-                </group>
-                </menu>
             </item>
         </menu>
 
