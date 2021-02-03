@@ -15,7 +15,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +38,8 @@ import fr.kosdev.mareunion.event.DeleteMeetingEvent;
 import fr.kosdev.mareunion.model.Meeting;
 import fr.kosdev.mareunion.service.DummyMeetingApiService;
 import fr.kosdev.mareunion.service.MeetingApiService;
+
+
 
 public class ListMeetingActivity extends AppCompatActivity {
 
@@ -111,6 +115,9 @@ public class ListMeetingActivity extends AppCompatActivity {
             //case R.id.toolbar_filter_list_btn:
                 //Toast.makeText(this, "no filter", Toast.LENGTH_LONG).show();
                 //return true;
+            case R.id.sub_home:
+                updateMeetingList();
+                return true;
             case R.id.sub_date:
                 menuSelectedDate();
                 return true;
@@ -178,29 +185,35 @@ public class ListMeetingActivity extends AppCompatActivity {
         DatePickerDialog menuPicker = new DatePickerDialog(this, mPickerDialog,lastSelectedYear,lastSelectedMonth,lastSelectedDayOfMonth);
         menuPicker.show();
     }
+    int checkedRoom = 0;
 
     private void configureAlertDialog(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("choose your room");
-        String[] rooms = {"Salle A","Salle B","Salle C","Salle D","Salle E","Salle F","Salle G","Salle H","Salle I","Salle J"};
-        int checkedRoom = 0;
+       // String[] rooms = {"Salle A","Salle B","Salle C","Salle D","Salle E","Salle F","Salle G","Salle H","Salle I","Salle J"};
+        String[] rooms = getResources().getStringArray(R.array.rooms_name);
+
+
         builder.setSingleChoiceItems(rooms, checkedRoom, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkedRoom = which;
 
-            }
-        });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String roomSelected = Integer.toString(checkedRoom);
-                mMeetings.clear();
-                mMeetings.addAll(mApiService.getMeetingsWithRoomSelected(roomSelected));
-                meetingAdapter.notifyDataSetChanged();
 
-            }
-        });
+                    }
+                });
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String roomSelected = rooms[checkedRoom];
+                        mMeetings.clear();
+                        mMeetings.addAll(mApiService.getMeetingsWithRoomSelected(roomSelected));
+                        meetingAdapter.notifyDataSetChanged();
+
+                    }
+                });
         builder.setNegativeButton("Cancel",null);
         AlertDialog roomsDialog = builder.create();
         roomsDialog.show();

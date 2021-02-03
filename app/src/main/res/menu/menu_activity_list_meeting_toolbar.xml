@@ -8,6 +8,9 @@
         android:title="@string/filter">
         <menu>
             <item
+                android:id="@+id/sub_home"
+                android:title="HOME"/>
+            <item
                 android:id="@+id/sub_date"
                 android:title="@string/meeting_dates" />
             <item

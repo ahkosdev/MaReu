@@ -53,7 +53,7 @@ public class DummyMeetingApiService  implements MeetingApiService {
     public List<Meeting> getMeetingsWithRoomSelected(String roomSelected) {
         List<Meeting> meetingsPerRoom = new ArrayList<>();
         for (int item = 0; item<mMeetings.size(); item++){
-            if (mMeetings.get(item).getMeetingRoom()==roomSelected){
+            if (mMeetings.get(item).getMeetingRoom().equals(roomSelected)){
                 meetingsPerRoom.add(mMeetings.get(item));
             }
 

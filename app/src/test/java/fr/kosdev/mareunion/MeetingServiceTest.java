@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import fr.kosdev.mareunion.DI.DI;
 import fr.kosdev.mareunion.model.Meeting;
@@ -20,6 +22,7 @@ import static org.junit.Assert.*;
 public class MeetingServiceTest {
 
     private MeetingApiService meetingService;
+    int item;
 
     @Before
     public void setUp(){
@@ -47,6 +50,17 @@ public class MeetingServiceTest {
     @Test
     public void getMeetingsWithDateSelectedWithSuccess() {
         List<Meeting> meetingsPerDate = new ArrayList<>();
+
+        Calendar dateSelected = Calendar.getInstance() ;
+       for (int item = 0; item<meetingService.getMeetings().size(); item++){
+          if (meetingService.getMeetings().get(item).getCalendar().getTimeInMillis()==dateSelected.getTimeInMillis());
+           // meetingsPerDate.add(meetingService.getMeetings().get(item));
+           meetingService.getMeetingsWithDateSelected(dateSelected);
+           assertFalse(meetingsPerDate.contains(meetingService.getMeetings().get(item)));
+
+       }
+
+
 
     }
 }
