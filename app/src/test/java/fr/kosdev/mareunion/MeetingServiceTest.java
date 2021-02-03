@@ -49,16 +49,17 @@ public class MeetingServiceTest {
 
     @Test
     public void getMeetingsWithDateSelectedWithSuccess() {
-        List<Meeting> meetingsPerDate = new ArrayList<>();
+
 
         Calendar dateSelected = Calendar.getInstance() ;
-       for (int item = 0; item<meetingService.getMeetings().size(); item++){
-          if (meetingService.getMeetings().get(item).getCalendar().getTimeInMillis()==dateSelected.getTimeInMillis());
+        List<Meeting> meetingsPerDate = meetingService.getMeetingsWithDateSelected(dateSelected);
+      // for (int item = 0; item<meetingService.getMeetings().size(); item++){
+          //if (meetingService.getMeetings().get(item).getCalendar().getTimeInMillis()==dateSelected.getTimeInMillis());
            // meetingsPerDate.add(meetingService.getMeetings().get(item));
-           meetingService.getMeetingsWithDateSelected(dateSelected);
-           assertFalse(meetingsPerDate.contains(meetingService.getMeetings().get(item)));
 
-       }
+           assertTrue(meetingsPerDate.isEmpty());
+
+       //}
 
 
 
