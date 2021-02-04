@@ -31,6 +31,11 @@ public class Meeting {
 
     }
 
+    public Meeting(String name, String meetingRoom) {
+        this.name = name;
+        this.meetingRoom = meetingRoom;
+    }
+
 
     public int getMeetingImage() {
         return meetingImage;

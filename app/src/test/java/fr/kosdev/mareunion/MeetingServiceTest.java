@@ -49,8 +49,6 @@ public class MeetingServiceTest {
 
     @Test
     public void getMeetingsWithDateSelectedWithSuccess() {
-
-
         Calendar dateSelected = Calendar.getInstance() ;
         List<Meeting> meetingsPerDate = meetingService.getMeetingsWithDateSelected(dateSelected);
       // for (int item = 0; item<meetingService.getMeetings().size(); item++){
@@ -63,5 +61,13 @@ public class MeetingServiceTest {
 
 
 
+    }
+
+    @Test
+    public void getMeetingWithRoomSelectedWithSuccess() {
+        Meeting meetingRoomA = new Meeting("conseil", "Salle A");
+        String roomSelected = "Salle A";
+        List<Meeting> meetingPerRoom = meetingService.getMeetingsWithRoomSelected(roomSelected);
+        assertTrue(meetingPerRoom.contains(meetingRoomA));
     }
 }
