@@ -21,7 +21,6 @@ import org.junit.runner.RunWith;
 import fr.kosdev.mareunion.R;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
@@ -63,37 +62,7 @@ public class ListMeetingActivityTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText.perform(replaceText("c"), closeSoftKeyboard());
-
-        ViewInteraction textInputEditText2 = onView(
-                allOf(withId(R.id.meeting_object_txt), withText("c"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_object_txt),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText2.perform(click());
-
-        ViewInteraction textInputEditText3 = onView(
-                allOf(withId(R.id.meeting_object_txt), withText("c"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_object_txt),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText3.perform(replaceText("conseil"));
-
-        ViewInteraction textInputEditText4 = onView(
-                allOf(withId(R.id.meeting_object_txt), withText("conseil"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_object_txt),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText4.perform(closeSoftKeyboard());
+        textInputEditText.perform(replaceText("conseil"), closeSoftKeyboard());
 
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.date_picker_button), withText("GET DATE"),
@@ -115,56 +84,6 @@ public class ListMeetingActivityTest {
         materialButton2.perform(scrollTo(), click());
 
         ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.date_picker_button), withText("GET DATE"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        2),
-                                1),
-                        isDisplayed()));
-        materialButton3.perform(click());
-
-        ViewInteraction materialButton4 = onView(
-                allOf(withId(android.R.id.button2), withText("Cancel"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                2)));
-        materialButton4.perform(scrollTo(), click());
-
-        ViewInteraction materialButton5 = onView(
-                allOf(withId(R.id.time_picker_button), withText("GET TIME"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
-                        isDisplayed()));
-        materialButton5.perform(click());
-
-        pressBack();
-
-        ViewInteraction materialButton6 = onView(
-                allOf(withId(R.id.time_picker_button), withText("GET TIME"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        3),
-                                1),
-                        isDisplayed()));
-        materialButton6.perform(click());
-
-        ViewInteraction materialButton7 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                3)));
-        materialButton7.perform(scrollTo(), click());
-
-        ViewInteraction materialButton8 = onView(
                 allOf(withId(R.id.meeting_add_btn), withText("Add"),
                         childAtPosition(
                                 childAtPosition(
@@ -172,7 +91,7 @@ public class ListMeetingActivityTest {
                                         0),
                                 6),
                         isDisplayed()));
-        materialButton8.perform(click());
+        materialButton3.perform(click());
 
         ViewInteraction floatingActionButton2 = onView(
                 allOf(withId(R.id.add_meeting_fab),
@@ -185,7 +104,7 @@ public class ListMeetingActivityTest {
                         isDisplayed()));
         floatingActionButton2.perform(click());
 
-        ViewInteraction textInputEditText5 = onView(
+        ViewInteraction textInputEditText2 = onView(
                 allOf(withId(R.id.meeting_object_txt),
                         childAtPosition(
                                 childAtPosition(
@@ -193,9 +112,9 @@ public class ListMeetingActivityTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText5.perform(replaceText("conseil"), closeSoftKeyboard());
+        textInputEditText2.perform(replaceText("conseil"), closeSoftKeyboard());
 
-        ViewInteraction materialButton9 = onView(
+        ViewInteraction materialButton4 = onView(
                 allOf(withId(R.id.date_picker_button), withText("GET DATE"),
                         childAtPosition(
                                 childAtPosition(
@@ -203,18 +122,18 @@ public class ListMeetingActivityTest {
                                         2),
                                 1),
                         isDisplayed()));
-        materialButton9.perform(click());
+        materialButton4.perform(click());
 
-        ViewInteraction materialButton10 = onView(
+        ViewInteraction materialButton5 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
                                         0),
                                 3)));
-        materialButton10.perform(scrollTo(), click());
+        materialButton5.perform(scrollTo(), click());
 
-        ViewInteraction materialButton11 = onView(
+        ViewInteraction materialButton6 = onView(
                 allOf(withId(R.id.meeting_add_btn), withText("Add"),
                         childAtPosition(
                                 childAtPosition(
@@ -222,7 +141,7 @@ public class ListMeetingActivityTest {
                                         0),
                                 6),
                         isDisplayed()));
-        materialButton11.perform(click());
+        materialButton6.perform(click());
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -262,17 +181,17 @@ public class ListMeetingActivityTest {
                         isDisplayed()));
         materialTextView.perform(click());
 
-        ViewInteraction materialButton12 = onView(
+        ViewInteraction materialButton7 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
                                         withClassName(is("android.widget.ScrollView")),
                                         0),
                                 3)));
-        materialButton12.perform(scrollTo(), click());
+        materialButton7.perform(scrollTo(), click());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.meeting_description_txt), withText("conseil-2/2/2021--Salle A"),
+                allOf(withId(R.id.meeting_description_txt), withText("conseil-14/2/2021--Salle A"),
                         childAtPosition(
                                 allOf(withId(R.id.description_text_lyt),
                                         childAtPosition(
@@ -280,7 +199,7 @@ public class ListMeetingActivityTest {
                                                 1)),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("conseil-2/2/2021--Salle A")));
+        textView.check(matches(withText("conseil-14/2/2021--Salle A")));
     }
 
     private static Matcher<View> childAtPosition(

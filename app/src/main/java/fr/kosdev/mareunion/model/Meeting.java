@@ -31,9 +31,10 @@ public class Meeting {
 
     }
 
-    public Meeting(String name, String meetingRoom) {
+    public Meeting(String name, String meetingRoom,Calendar mCalendar) {
         this.name = name;
         this.meetingRoom = meetingRoom;
+        this.mCalendar = mCalendar;
     }
 
 

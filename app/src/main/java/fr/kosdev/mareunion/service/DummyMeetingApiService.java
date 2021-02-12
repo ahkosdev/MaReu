@@ -14,8 +14,6 @@ import static android.widget.Toast.*;
 public class DummyMeetingApiService  implements MeetingApiService {
 
     List<Meeting> mMeetings = new ArrayList<>();
-   // List<Meeting> meetingsPerDate = new ArrayList<>();
-   // List<Meeting> meetingsPerRoom = new ArrayList<>();
 
 
 
@@ -49,20 +47,11 @@ public class DummyMeetingApiService  implements MeetingApiService {
         return meetingsPerDate;
 
     }
-    String roomSelected = "Salle A";
 
     @Override
     public List<Meeting> getMeetingsWithRoomSelected(String roomSelected) {
         List<Meeting> meetingsPerRoom = new ArrayList<>();
-        Meeting meetingRoomA = new Meeting("conseil", "Salle A");
-        Meeting meetingRoomB = new Meeting("Conseil", "Salle B");
-
-        this.roomSelected = roomSelected;
-
         for (int item = 0; item<mMeetings.size(); item++){
-            mMeetings.add(meetingRoomA);
-            mMeetings.add(meetingRoomB);
-
             if (mMeetings.get(item).getMeetingRoom().equals(roomSelected)) {
                 meetingsPerRoom.add(mMeetings.get(item));
             }

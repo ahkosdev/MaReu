@@ -112,9 +112,6 @@ public class ListMeetingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected( MenuItem item) {
         switch (item.getItemId()){
-            //case R.id.toolbar_filter_list_btn:
-                //Toast.makeText(this, "no filter", Toast.LENGTH_LONG).show();
-                //return true;
             case R.id.sub_home:
                 updateMeetingList();
                 return true;

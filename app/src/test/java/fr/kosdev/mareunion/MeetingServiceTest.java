@@ -22,16 +22,13 @@ import static org.junit.Assert.*;
 public class MeetingServiceTest {
 
     private MeetingApiService meetingService;
-    int item;
+
 
     @Before
     public void setUp(){
         meetingService = DI.getMeetingApiService();
     }
-    @Test
-    public void getMeetingsWithSuccess() {
 
-    }
 
     @Test
     public void createMeetingWithSuccess() {
@@ -50,24 +47,36 @@ public class MeetingServiceTest {
     @Test
     public void getMeetingsWithDateSelectedWithSuccess() {
         Calendar dateSelected = Calendar.getInstance() ;
+        Calendar dateA = Calendar.getInstance();
+        dateA.set(2021,2,4);
+        Calendar dateB = Calendar.getInstance();
+        dateB.set(2021,2,6);
+        dateSelected = dateA;
+        Meeting meetingRoomA = new Meeting("conseil", "Salle A",dateA);
+        Meeting meetingRoomB = new Meeting("conseil","Salle B",dateB);
+        meetingService.createMeeting(meetingRoomA);
+        meetingService.createMeeting(meetingRoomB);
         List<Meeting> meetingsPerDate = meetingService.getMeetingsWithDateSelected(dateSelected);
-      // for (int item = 0; item<meetingService.getMeetings().size(); item++){
-          //if (meetingService.getMeetings().get(item).getCalendar().getTimeInMillis()==dateSelected.getTimeInMillis());
-           // meetingsPerDate.add(meetingService.getMeetings().get(item));
 
-           assertTrue(meetingsPerDate.isEmpty());
-
-       //}
-
+           assertTrue(meetingsPerDate.contains(meetingRoomA));
+           assertFalse(meetingsPerDate.contains(meetingRoomB));
 
 
     }
 
     @Test
     public void getMeetingWithRoomSelectedWithSuccess() {
-        Meeting meetingRoomA = new Meeting("conseil", "Salle A");
+        Calendar dateA = Calendar.getInstance();
+        dateA.set(2021,2,4);
+        Calendar dateB = Calendar.getInstance();
+        dateB.set(2021,2,6);
+        Meeting meetingRoomA = new Meeting("conseil", "Salle A",dateA);
+        Meeting meetingRoomB = new Meeting("conseil","Salle B",dateB);
+        meetingService.createMeeting(meetingRoomA);
+        meetingService.createMeeting(meetingRoomB);
         String roomSelected = "Salle A";
         List<Meeting> meetingPerRoom = meetingService.getMeetingsWithRoomSelected(roomSelected);
         assertTrue(meetingPerRoom.contains(meetingRoomA));
+        assertFalse(meetingPerRoom.contains(meetingRoomB));
     }
 }
