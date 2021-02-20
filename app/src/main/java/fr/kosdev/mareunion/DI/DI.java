@@ -12,4 +12,8 @@ public class DI {
 
         return meetingService;
     }
+
+    public static void clearNewMeetingApiService(){
+        meetingService.getMeetings().clear();
+    }
 }

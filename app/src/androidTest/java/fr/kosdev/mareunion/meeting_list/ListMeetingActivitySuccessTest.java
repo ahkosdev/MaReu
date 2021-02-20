@@ -15,10 +15,12 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import fr.kosdev.mareunion.DI.DI;
 import fr.kosdev.mareunion.R;
 
 import static androidx.test.espresso.Espresso.onData;
@@ -26,6 +28,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -48,6 +51,11 @@ public class ListMeetingActivitySuccessTest {
 
     @Rule
     public ActivityTestRule<ListMeetingActivity> mActivityTestRule = new ActivityTestRule<>(ListMeetingActivity.class);
+
+    @Before
+    public void initApi(){
+        DI.clearNewMeetingApiService();
+    }
 
 
     @Test
@@ -102,7 +110,7 @@ public class ListMeetingActivitySuccessTest {
         onView(Matchers.allOf(withId(R.id.add_meeting_fab),isDisplayed())).perform(click());
         onView(Matchers.allOf(withId(R.id.meeting_object_txt),isDisplayed())).perform(replaceText("Conseil Général"),closeSoftKeyboard());
         onView(Matchers.allOf(withId(R.id.meeting_rooms_spin),isDisplayed())).perform(click());
-        onView(Matchers.allOf(withText("Salle H"),isDisplayed())).perform(click());
+        onView(Matchers.allOf(withText("Salle H"),isDisplayed())).perform(scrollTo(),click());
         onView(Matchers.allOf(withId(R.id.meeting_add_btn), isDisplayed())).perform(click());
         onView(Matchers.allOf(withId(R.id.meeting_list_rcv),isDisplayed())).check(withItemCount(ITEMS_COUNT + 2));
         onView(Matchers.allOf(withId(R.id.toolbar_filter_list_btn),isDisplayed())).perform(click());

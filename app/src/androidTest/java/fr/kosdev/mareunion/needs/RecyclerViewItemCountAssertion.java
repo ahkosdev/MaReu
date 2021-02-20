@@ -24,8 +24,6 @@ public class RecyclerViewItemCountAssertion implements ViewAssertion {
         return new RecyclerViewItemCountAssertion(matcher);
     }
 
-
-
     public RecyclerViewItemCountAssertion(Matcher<Integer> matcher) {
         this.matcher = matcher;
     }
